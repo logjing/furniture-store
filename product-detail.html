@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商品详情 - 珠杭家私商行</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <span class="logo-icon">&#127968;</span>
+                <span class="logo-text">珠杭家私商行</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html#home">首页</a></li>
+                <li><a href="index.html#products">商品展示</a></li>
+                <li><a href="index.html#about">关于我们</a></li>
+                <li><a href="index.html#contact">联系方式</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 商品详情 -->
+    <section class="product-detail">
+        <div class="container">
+            <a href="index.html#products" class="btn-back">&#8592; 返回商品列表</a>
+
+            <div class="detail-grid">
+                <div class="detail-image">
+                    <img id="detail-img" src="" alt="商品图片">
+                </div>
+                <div class="detail-info">
+                    <span id="detail-category" class="detail-category">分类</span>
+                    <h1 id="detail-title">商品标题</h1>
+                    <p id="detail-desc" class="detail-desc">商品描述</p>
+                    <div class="detail-price">
+                        <span>价格：</span>
+                        <span id="detail-price">面议</span>
+                    </div>
+                    <div class="detail-actions">
+                        <a id="detail-buy-link" href="#" class="btn-buy" target="_blank" rel="noopener noreferrer">去闲鱼购买</a>
+                        <a href="tel:15381139216" class="btn-contact">电话咨询：15381139216</a>
+                    </div>
+                    <div class="detail-notice">
+                        <p>&#128222; 联系电话：15381139216</p>
+                        <p>&#128205; 店铺地址：北京市朝阳区建国路88号SOHO现代城A座1层</p>
+                        <p>&#128100; 店主：王卫丽</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="logo-icon">&#127968;</span>
+                    <span class="logo-text">珠杭家私商行</span>
+                    <p>打造温馨舒适的家</p>
+                </div>
+                <div class="footer-links">
+                    <h4>快速链接</h4>
+                    <ul>
+                        <li><a href="index.html#home">首页</a></li>
+                        <li><a href="index.html#products">商品展示</a></li>
+                        <li><a href="index.html#about">关于我们</a></li>
+                        <li><a href="index.html#contact">联系方式</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>联系信息</h4>
+                    <p>&#128222; 15381139216</p>
+                    <p>&#128205; 北京市朝阳区建国路88号</p>
+                    <p>&#128100; 店主：王卫丽</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&#169; 2024 珠杭家私商行 版权所有 | 精品家具，品质生活</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // 解析URL参数并填充商品详情
+        function getParam(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return decodeURIComponent(urlParams.get(name) || '');
+        }
+
+        const name = getParam('name') || '商品详情';
+        const img = getParam('img') || '';
+        const desc = getParam('desc') || '';
+        const price = getParam('price') || '面议';
+        const category = getParam('category') || '';
+
+        const categoryNames = {
+            'sofa': '沙发',
+            'bed': '床具',
+            'table': '餐桌',
+            'chair': '椅子',
+            'cabinet': '柜子'
+        };
+
+        // 闲鱼购买链接（空格已编码）
+        const buyUrl = 'https://m.tb.cn/h.80cPyzr?tk=oAcqgKafcBh%20CZ028';
+        const buyLink = document.getElementById('detail-buy-link');
+        buyLink.href = buyUrl;
+
+        // 兼容本地文件直接打开时的跳转（新标签页）
+        buyLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            const newWindow = window.open(buyUrl, '_blank');
+            // 如果被浏览器拦截， fallback 到当前页打开
+            if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+                window.location.href = buyUrl;
+            }
+        });
+
+        document.getElementById('detail-img').src = img;
+        document.getElementById('detail-img').alt = name;
+        document.getElementById('detail-title').textContent = name;
+        document.getElementById('detail-desc').textContent = desc;
+        document.getElementById('detail-price').textContent = price;
+        document.getElementById('detail-category').textContent = categoryNames[category] || '家具';
+        document.title = name + ' - 珠杭家私商行';
+    </script>
+</body>
+</html>
